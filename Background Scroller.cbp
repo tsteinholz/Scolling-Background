@@ -51,9 +51,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="src/gameobjects/gameobject.h">
-			<Option link="1" />
-		</Unit>
+		<Unit filename="src/gameobjects/gameobject.h" />
 		<Unit filename="src/gameobjects/graphics/sprite.cpp" />
 		<Unit filename="src/gameobjects/graphics/sprite.h" />
 		<Unit filename="src/gameobjects/ui/button.cpp" />
