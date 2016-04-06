@@ -32,6 +32,8 @@
 
 #include <cstdio>
 
+#include "gameobjects/graphics/sprite.h"
+
 int main() {
 
     srand((unsigned int) time(NULL));
@@ -84,16 +86,25 @@ int main() {
         exit(-1);
     }
 
+    ALLEGRO_BITMAP *sprite_dino = al_load_bitmap("res/dino.png");
+    if (!sprite_dino) {
+        printf("Couldn't load dino!\n");
+        exit(-1);
+    }
+
     ALLEGRO_FONT *font = al_load_font("res/league-gothic.ttf", 30, 0);
     if (!font) {
         printf("Couldn't load font!\n");
         exit(-1);
     }
 
+    Sprite *dino = new Sprite(sprite_dino, 4, 5);
+    dino->Play(400, 300, 0, true);
+
     ////////////////////////////////////////////////////////////////////
 
     queue = al_create_event_queue();
-    timer = al_create_timer(1.0 / 60);
+    timer = al_create_timer(1.0 / 15);
 
     al_register_event_source(queue, al_get_keyboard_event_source());
     al_register_event_source(queue, al_get_mouse_event_source());
@@ -110,6 +121,7 @@ int main() {
         al_wait_for_event(queue, &event);
         //UPDATE////////////////////////////////////////////////////////////
 
+        dino->Update(&event);
         switch (event.type) {
             case ALLEGRO_EVENT_DISPLAY_CLOSE:
                 executing = false;
@@ -120,10 +132,12 @@ int main() {
                 case ALLEGRO_KEY_RIGHT:
                 case ALLEGRO_KEY_D:
                     bgv = 5;
+                    dino->Play(400, 300, 1, true);
                     break;
                 case ALLEGRO_KEY_LEFT:
                 case ALLEGRO_KEY_A:
                     bgv = -5;
+                    dino->Play(400, 300, 3, true);
                     break;
                 }
                 break;
@@ -153,8 +167,9 @@ int main() {
             //RENDER////////////////////////////////////////////////////////////
 
             al_draw_scaled_bitmap(background, bgx, 0, 800, 600, 0, 0, 800, 600, 0);
-            al_draw_textf(font, al_map_rgb(255, 255, 255), 300, 100, ALLEGRO_ALIGN_CENTER, "%i", bgx);
-
+            al_draw_text(font, al_map_rgb(255, 255, 255), 5, 0, ALLEGRO_ALIGN_LEFT, "A - To go left");
+            al_draw_text(font, al_map_rgb(255, 255, 255), 5, 30, ALLEGRO_ALIGN_LEFT, "D - To go right");
+            dino->Render();
 
             //RENDER////////////////////////////////////////////////////////////
             al_flip_display();

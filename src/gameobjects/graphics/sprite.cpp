@@ -5,10 +5,12 @@ Sprite::Sprite(ALLEGRO_BITMAP *image, unsigned int columns, unsigned int rows)
 
 Sprite::~Sprite() { }
 
-void Sprite::Play(float x, float y, bool loop) {
+void Sprite::Play(float x, float y, int row, bool loop) {
     _Playing = true;
+    _Row = row;
+    if (_Row != -1) _SpriteY = _Row;
+    else _SpriteY = 0;
     _SpriteX = 0;
-    _SpriteY = 0;
     _Loop = loop;
     _X = x;
     _Y = y;
@@ -40,7 +42,7 @@ void Sprite::Update(ALLEGRO_EVENT *event) {
             if (((unsigned int)_SpriteX != _Columns - 1 && (unsigned int)_SpriteY != _Rows - 1) || _Loop) {
                 if ((unsigned int)_SpriteX + 1 >= _Columns - 1) {
                     _SpriteX = 0;
-                    _SpriteY = (unsigned int)_SpriteY >= _Rows - 1 ? (_Loop ? 0 : _SpriteY) : _SpriteY + 1;
+                    _SpriteY = _Row != -1 ? _SpriteY : ((unsigned int)_SpriteY >= _Rows - 1 ? (_Loop ? 0 : _SpriteY) : _SpriteY + 1);
                 } else {
                     _SpriteX++;
                 }

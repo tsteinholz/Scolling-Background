@@ -46,10 +46,10 @@
 1459652522 source:d:\users\thomas\documents\development\c++\scrolling-background\src\scenes\game.cpp
 	"game.h"
 
-1459941661 source:h:\c++\scrolling-background\src\gameobjects\graphics\sprite.cpp
+1459945821 source:h:\c++\scrolling-background\src\gameobjects\graphics\sprite.cpp
 	"sprite.h"
 
-1459941661 h:\c++\scrolling-background\src\gameobjects\graphics\sprite.h
+1459944876 h:\c++\scrolling-background\src\gameobjects\graphics\sprite.h
 	<allegro5/bitmap.h>
 	<allegro5/allegro_primitives.h>
 	"../gameobject.h"
@@ -66,7 +66,7 @@
 	<string>
 	"../gameobject.h"
 
-1459942529 source:h:\c++\scrolling-background\src\main.cpp
+1459945733 source:h:\c++\scrolling-background\src\main.cpp
 	<allegro5/allegro.h>
 	<allegro5/allegro_audio.h>
 	<allegro5/allegro_acodec.h>
@@ -75,6 +75,7 @@
 	<allegro5/allegro_font.h>
 	<allegro5/allegro_ttf.h>
 	<cstdio>
+	"gameobjects/graphics/sprite.h"
 
 1459941661 h:\c++\scrolling-background\src\scenes\scene.h
 	"../gameobjects/ui/button.h"

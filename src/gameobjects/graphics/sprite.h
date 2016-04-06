@@ -45,7 +45,7 @@ public:
     // param y: The vertical coordinate to render the animation
     // param loop: if the animation will loop or not
     //-----------------------------------------------------------------------------
-    void Play(float x, float y, bool loop);
+    void Play(float x, float y, int row = -1, bool loop = false);
 
     //-----------------------------------------------------------------------------
     // Purpose: Set a new image to animate
@@ -69,7 +69,7 @@ public:
 
 protected:
     ALLEGRO_BITMAP* _Image;
-    int _SpriteX, _SpriteY;
+    int _SpriteX, _SpriteY, _Row;
     unsigned int _Columns, _Rows;
     bool _Loop, _Playing;
 private:
