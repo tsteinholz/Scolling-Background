@@ -44,29 +44,8 @@ public:
 
     virtual void Update(ALLEGRO_EVENT *event) override;
 
-    typedef enum {
-        Playing,
-        Conclusion
-    } State;
-
 protected:
 
-    static int _Score[2];
-
-    void HandleTurn(char letter);
-
-    std::vector<std::shared_ptr<Button>> Alphabet;
-    std::string _TheWord, _DisplayWord;
-    Sprite *_Hangman;
-    Sprite *_HangmanCLONE1;
-    Sprite *_HangmanCLONE2;
-
-
-    unsigned int _ErrorCount;
-    bool _Won;
-
-    Button *btn_Continue, *btn_Quit;
-    State _State;
 };
 
 

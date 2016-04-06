@@ -23,6 +23,13 @@
 //-----------------------------------------------------------------------------
 
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
+#include <allegro5/allegro_image.h>
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
+
 #include <cstdio>
 #include "scenes/scene.h"
 #include "scenes/mainmenu.h"
@@ -36,6 +43,36 @@ int main() {
     ALLEGRO_DISPLAY *display = NULL;
     ALLEGRO_EVENT_QUEUE *queue;
     ALLEGRO_TIMER *timer;
+
+     if (!al_init()) {
+        printf("al_init Failed!\n");
+        exit(-1);
+    }
+    if (!al_install_audio()) {
+        fprintf(stderr, "Failed to initialize audio!\n");
+        exit(-1);
+    }
+    if (!al_init_acodec_addon()) {
+        fprintf(stderr, "Failed to initialize audio codecs!\n");
+        exit(-1);
+    }
+    if (!al_reserve_samples(1)) {
+        fprintf(stderr, "Failed to reserve samples!\n");
+        exit(-1);
+    }
+    if (!al_install_mouse()) {
+        fprintf(stderr, "Failed to initialize the mouse!\n");
+        exit(-1);
+    }
+    if (!al_init_primitives_addon()) {
+        fprintf(stderr, "al_init_primitives_addon Failed!\n");
+        exit(-1);
+    }
+
+    al_init_font_addon();
+    al_init_ttf_addon();
+    al_install_keyboard();
+    al_init_image_addon();
 
     display = al_create_display(700, 700);
     if (!display) {
@@ -55,7 +92,7 @@ int main() {
 
     bool render = true;
 
-    Scene::Current = new MainMenu();
+    Scene::Current = new Game();
 
     while (Scene::GetExe()) {
         ALLEGRO_EVENT event;
@@ -77,8 +114,6 @@ int main() {
             al_clear_to_color(al_map_rgb(0, 0, 0));
             al_set_target_bitmap(al_get_backbuffer(display));
             ////////////////////////////////////////////////////////////////////
-
-            // TODO Draw background
 
             Scene::Current->Render();
 

@@ -1,0 +1,48 @@
+# depslib dependency file v1.0
+1459651533 source:d:\users\thomas\documents\development\c++\scrolling-background\src\gameobjects\graphics\sprite.cpp
+	"sprite.h"
+
+1459651533 d:\users\thomas\documents\development\c++\scrolling-background\src\gameobjects\graphics\sprite.h
+	<allegro5/bitmap.h>
+	<allegro5/allegro_primitives.h>
+	"../gameobject.h"
+
+1459651533 d:\users\thomas\documents\development\c++\scrolling-background\src\gameobjects\gameobject.h
+	<allegro5/events.h>
+
+1459651533 source:d:\users\thomas\documents\development\c++\scrolling-background\src\gameobjects\ui\button.cpp
+	"button.h"
+
+1459651533 d:\users\thomas\documents\development\c++\scrolling-background\src\gameobjects\ui\button.h
+	<allegro5/allegro_font.h>
+	<functional>
+	<string>
+	"../gameobject.h"
+
+1459652367 source:d:\users\thomas\documents\development\c++\scrolling-background\src\main.cpp
+	<allegro5/allegro.h>
+	<cstdio>
+	"scenes/scene.h"
+	"scenes/mainmenu.h"
+
+1459651533 d:\users\thomas\documents\development\c++\scrolling-background\src\scenes\scene.h
+	"../gameobjects/ui/button.h"
+
+1459651533 d:\users\thomas\documents\development\c++\scrolling-background\src\scenes\mainmenu.h
+	"scene.h"
+	"game.h"
+	"help.h"
+
+1459652539 d:\users\thomas\documents\development\c++\scrolling-background\src\scenes\game.h
+	<memory>
+	<vector>
+	"scene.h"
+	"mainmenu.h"
+	"../gameobjects/graphics/sprite.h"
+
+1459651533 d:\users\thomas\documents\development\c++\scrolling-background\src\scenes\help.h
+	"scene.h"
+
+1459652522 source:d:\users\thomas\documents\development\c++\scrolling-background\src\scenes\game.cpp
+	"game.h"
+
