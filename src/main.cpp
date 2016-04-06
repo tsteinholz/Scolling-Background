@@ -84,6 +84,12 @@ int main() {
         exit(-1);
     }
 
+    ALLEGRO_FONT *font = al_load_font("res/league-gothic.ttf", 30, 0);
+    if (!font) {
+        printf("Couldn't load font!\n");
+        exit(-1);
+    }
+
     ////////////////////////////////////////////////////////////////////
 
     queue = al_create_event_queue();
@@ -130,10 +136,13 @@ int main() {
                 break;
         }
 
-        //if (bgx <= 15) {
-        //    bgv = 0;
-        //    bgx = 0;
-        //}
+        if (bgx <= -1) {
+            bgv = 0;
+            bgx = 0;
+        } else if (bgx >= 801) {
+            bgv = 0;
+            bgx = 800;
+        }
         bgx += bgv;
 
         //UPDATE////////////////////////////////////////////////////////////
@@ -144,6 +153,7 @@ int main() {
             //RENDER////////////////////////////////////////////////////////////
 
             al_draw_scaled_bitmap(background, bgx, 0, 800, 600, 0, 0, 800, 600, 0);
+            al_draw_textf(font, al_map_rgb(255, 255, 255), 300, 100, ALLEGRO_ALIGN_CENTER, "%i", bgx);
 
 
             //RENDER////////////////////////////////////////////////////////////
