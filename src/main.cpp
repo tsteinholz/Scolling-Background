@@ -31,10 +31,6 @@
 #include <allegro5/allegro_ttf.h>
 
 #include <cstdio>
-#include "scenes/scene.h"
-#include "scenes/mainmenu.h"
-
-Scene *Scene::Current = nullptr;
 
 int main() {
 
@@ -74,11 +70,21 @@ int main() {
     al_install_keyboard();
     al_init_image_addon();
 
-    display = al_create_display(700, 700);
+    display = al_create_display(800, 600);
     if (!display) {
         printf("al_create_display Failed!\n");
         exit(-1);
     }
+
+    //LOAD ASSETS///////////////////////////////////////////////////////
+
+    ALLEGRO_BITMAP *background = al_load_bitmap("res/background.png");
+    if (!background) {
+        printf("Couldn't load background!\n");
+        exit(-1);
+    }
+
+    ////////////////////////////////////////////////////////////////////
 
     queue = al_create_event_queue();
     timer = al_create_timer(1.0 / 60);
@@ -90,36 +96,59 @@ int main() {
 
     al_start_timer(timer);
 
-    bool render = true;
+    bool render = true, executing = true;
+    int bgx = 0, bgv = 0;
 
-    Scene::Current = new Game();
-
-    while (Scene::GetExe()) {
+    while (executing) {
         ALLEGRO_EVENT event;
         al_wait_for_event(queue, &event);
-        Scene::Current->Update(&event);
+        //UPDATE////////////////////////////////////////////////////////////
+
         switch (event.type) {
             case ALLEGRO_EVENT_DISPLAY_CLOSE:
-                Scene::SetExe(false);
+                executing = false;
                 break;
             case ALLEGRO_EVENT_KEY_DOWN:
-                Scene::SetExe(event.keyboard.keycode != ALLEGRO_KEY_ESCAPE);
+                executing = event.keyboard.keycode != ALLEGRO_KEY_ESCAPE;
+                switch(event.keyboard.keycode) {
+                case ALLEGRO_KEY_RIGHT:
+                case ALLEGRO_KEY_D:
+                    bgv = 5;
+                    break;
+                case ALLEGRO_KEY_LEFT:
+                case ALLEGRO_KEY_A:
+                    bgv = -5;
+                    break;
+                }
+                break;
+            case ALLEGRO_EVENT_KEY_UP:
+                bgv = 0;
                 break;
             case ALLEGRO_EVENT_TIMER:
                 break;
             default:
                 break;
         }
-        if (al_is_event_queue_empty(queue) && render) {
+
+        //if (bgx <= 15) {
+        //    bgv = 0;
+        //    bgx = 0;
+        //}
+        bgx += bgv;
+
+        //UPDATE////////////////////////////////////////////////////////////
+
+        //if (al_is_event_queue_empty(queue) && render) {
             al_clear_to_color(al_map_rgb(0, 0, 0));
             al_set_target_bitmap(al_get_backbuffer(display));
-            ////////////////////////////////////////////////////////////////////
+            //RENDER////////////////////////////////////////////////////////////
 
-            Scene::Current->Render();
+            al_draw_scaled_bitmap(background, bgx, 0, 800, 600, 0, 0, 800, 600, 0);
 
-            ////////////////////////////////////////////////////////////////////
+
+            //RENDER////////////////////////////////////////////////////////////
             al_flip_display();
-        }
+        //}
         render = false;
     }
     al_destroy_display(display);
